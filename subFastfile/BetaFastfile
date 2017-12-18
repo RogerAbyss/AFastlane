@@ -1,0 +1,38 @@
+desc '预发布版(测试正式环境),上传Fir'
+override_lane :beta do |options|
+
+	# 获取参数
+	lane 				    = ENV["FASTLANE_LANE_NAME"]
+  adminer         = ENV["APP_ADMINER"]
+  token           = ENV["APP_FIR_TOKEN"]
+
+	# 获取最新的git
+	# Warning 只会处理当前分支
+	git_pull
+
+	# 更新三方库文件
+	pod_update
+
+  # 修改App本地配置信息
+  change
+
+  # 匹配证书
+  match
+  # 编译/打包
+  gym
+
+  # 上传Fir
+  path  = lane_context[SharedValues::IPA_OUTPUT_PATH]
+  msg   = "[#{lane}] - automatic build by #{adminer}"
+
+  UI.important "Upload Fir.im\n#{msg}"
+
+  system "fir publish #{path} -T #{token} -c #{msg}"
+
+  # 发送邮件
+  email
+
+  # 提交git
+  git_add(path: '.')
+  git_commit(path: '.', message: "[#{lane}] - Automatic version UP")
+end

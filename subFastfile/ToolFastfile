@@ -1,0 +1,26 @@
+desc '刷新证书, 如果失败请于管理员联系'
+override_lane :refresh do |options|
+
+	UI.important "遇到不能解决的问题, fastlane match nuke development/distribution"
+
+	match(type: "appstore")
+	match(type: "adhoc")
+	match(type: "development")
+end
+
+desc '设置证书(非管理员, 请不要使用此功能)'
+override_lane :setting do |options|
+
+	UI.important "遇到不能解决的问题, fastlane match nuke development/distribution"
+	
+	git_pull
+	cocoapods
+
+	match(type:"appstore")
+	match(type:"adhoc")
+	match(type:"development")
+end
+
+desc '清理打包缓存'
+override_lane :clear_cache do |options|
+end
