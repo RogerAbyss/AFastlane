@@ -26,6 +26,8 @@ platform :ios do
 	import "subFastfile/PrivateFastfile"
 	# 私有方法
 	import "subFastfile/AutotestFastfile"
+	# pod
+	import "subFastfile/CocoapodsFastfile"
 
 	after_all do
 	end
