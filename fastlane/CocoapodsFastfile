@@ -15,5 +15,5 @@ override_lane :lib_push do |options|
 	system "git tag #{version}"
 	system "git push --tag"
 
-	pod_push(repo: "AbyssRepo")
+	pod_push
 end
