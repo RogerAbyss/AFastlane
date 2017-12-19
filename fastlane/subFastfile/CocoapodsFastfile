@@ -1,8 +1,19 @@
-desc 'lib验证'
-override_lane : podlint do |options|
+desc 'lib lint'
+override_lane :lib_lint do |options|
 
 	pod_lib_lint(allow_warnings: true)
 
 	spec = read_podspec
 	UI.important "#{spec}"
+end
+
+desc 'lib push'
+override_lane :lib_push do |options|
+
+	version = version_bump_podspec(bump_type: "patch")
+
+	system "git tag #{version}"
+	system "git push --tag"
+
+	pod_push(repo: "AbyssRepo")
 end
