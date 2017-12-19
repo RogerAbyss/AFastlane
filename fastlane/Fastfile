@@ -15,19 +15,47 @@ platform :ios do
 
 
 	# 测试版本
-	import "subFastfile/TestFastfile"
+	import_from_git(
+		url: 'https://github.com/RogerAbyss/fastlane.git', 
+		branch: '0.0.2',
+		path: 'subFastfile/TestFastfile'
+	  )
 	# 预发布版本
-	import "subFastfile/BetaFastfile"
+	import_from_git(
+		url: 'https://github.com/RogerAbyss/fastlane.git', 
+		branch: '0.0.2',
+		path: 'subFastfile/BetaFastfile'
+	  )	
 	# 正式版本
-	import "subFastfile/ReleaseFastfile"
+	import_from_git(
+		url: 'https://github.com/RogerAbyss/fastlane.git', 
+		branch: '0.0.2',
+		path: 'subFastfile/ReleaseFastfile'
+	  )	
 	# 工具
-	import "subFastfile/ToolFastfile"
+	import_from_git(
+		url: 'https://github.com/RogerAbyss/fastlane.git', 
+		branch: '0.0.2',
+		path: 'subFastfile/ToolFastfile'
+	  )
 	# 私有方法
-	import "subFastfile/PrivateFastfile"
-	# 私有方法
-	import "subFastfile/AutotestFastfile"
+	import_from_git(
+		url: 'https://github.com/RogerAbyss/fastlane.git', 
+		branch: '0.0.2',
+		path: 'subFastfile/PrivateFastfile'
+	  )
+	# 自动化方法
+	import_from_git(
+		url: 'https://github.com/RogerAbyss/fastlane.git', 
+		branch: '0.0.2',
+		path: 'subFastfile/AutotestFastfile'
+	  )
 	# pod
-	import "subFastfile/CocoapodsFastfile"
+	import_from_git(
+		url: 'https://github.com/RogerAbyss/fastlane.git', 
+		branch: '0.0.2',
+		path: 'subFastfile/CocoapodsFastfile'
+	  )
 
 	after_all do
 	end
