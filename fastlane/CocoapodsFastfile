@@ -14,7 +14,7 @@ override_lane :lib_push do |options|
 
 	system "git tag #{version}"
 	system "git push --tag"
-	system "pod trunk register roger_ren@qq.com 'abyss' --description='abyss'"
+	system "pod repo add AbyssRepo https://gitee.com/rogerabyss/myrepo.git"
 
-	pod_push
+	pod_push(repo: "AbyssRepo")
 end
