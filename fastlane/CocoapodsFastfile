@@ -11,9 +11,11 @@ desc 'lib push'
 override_lane :lib_push do |options|
 
 	version = version_bump_podspec(bump_type: "patch")
+	spec = read_podspec
+	repo = spec["source"]["git"]
 
 	system "git tag #{version}"
-	system "git push --tag"
+	system "git push --tag --force --quiet 'https://ecd88d0c010f38e360fdf0ee6d94797708033721@#{repo}' master:master"
 	system "pod repo add AbyssRepo https://gitee.com/rogerabyss/myrepo.git"
 
 	pod_push(repo: "AbyssRepo")
