@@ -1,0 +1,197 @@
+desc '测试版,上传Fir'
+override_lane :test do |options|
+
+  # 获取参数
+  lane          = ENV["FASTLANE_LANE_NAME"]
+  adminer       = ENV["APP_ADMINER"]
+  token         = ENV["APP_FIR_TOKEN"]
+
+	# 获取最新的git
+	# Warning 只会处理当前分支
+	git_pull
+
+	# 更新三方库文件
+	pod_update
+
+  # 修改App本地配置信息
+  change
+
+  # 匹配证书
+  match
+  # 编译/打包
+  gym
+
+
+  # 上传Fir
+  path  = lane_context[SharedValues::IPA_OUTPUT_PATH]
+  msg   = "[#{lane}] - automatic build by #{adminer}"
+
+  UI.important "Upload Fir.im\n#{msg}"
+
+  system "fir publish #{path} -T #{token} -c #{msg}"
+
+  # 发送邮件
+  email
+
+  # 提交git
+  git_add(path: '.')
+  git_commit(path: '.', message: "[#{lane}] - Automatic version UP")
+end
+
+# ======================================================================
+# ======================================================================
+# ======================================================================
+
+
+desc '预发布版(测试正式环境),上传Fir'
+override_lane :beta do |options|
+
+	# 获取参数
+	lane 				    = ENV["FASTLANE_LANE_NAME"]
+  adminer         = ENV["APP_ADMINER"]
+  token           = ENV["APP_FIR_TOKEN"]
+
+	# 获取最新的git
+	# Warning 只会处理当前分支
+	git_pull
+
+	# 更新三方库文件
+	pod_update
+
+  # 修改App本地配置信息
+  change
+
+  # 匹配证书
+  match
+  # 编译/打包
+  gym
+
+  # 上传Fir
+  path  = lane_context[SharedValues::IPA_OUTPUT_PATH]
+  msg   = "[#{lane}] - automatic build by #{adminer}"
+
+  UI.important "Upload Fir.im\n#{msg}"
+
+  system "fir publish #{path} -T #{token} -c #{msg}"
+
+  # 发送邮件
+  email
+
+  # 提交git
+  git_add(path: '.')
+  git_commit(path: '.', message: "[#{lane}] - Automatic version UP")
+end
+
+# ======================================================================
+# ======================================================================
+# ======================================================================
+
+
+desc '正式服(使用前请自行处理好所有的git事务, 选择发布的分支), 上传AppStore'
+override_lane :release do |options|
+
+	# 获取参数
+	lane 				  = ENV["FASTLANE_LANE_NAME"]
+  adminer       = ENV["APP_ADMINER"]
+  token         = ENV["APP_FIR_TOKEN"]
+  version       = ENV["VERSION_NUMBER"]
+
+	# 更新三方库文件
+	pod_update
+
+  # 修改App配置, App-Store很多不要修改！
+  change
+
+	# 自动增加版本号
+	# Warning 请使用x.x.x标准版本号
+  increment_build_number
+  increment_version_number
+
+  # 匹配证书
+  match
+  # 编译/打包
+  gym
+
+  # 上传AppStore
+  deliver(force: false, skip_metadata: true, skip_screenshots: true)
+
+  # 发送邮件
+  email
+
+  # 提交git
+  git_add(path: '.')
+  git_commit(path: '.', message: "[AppStore] v#{version}")
+end
+
+# ======================================================================
+# ======================================================================
+# ======================================================================
+
+desc '刷新证书, 如果失败请于管理员联系'
+override_lane :refresh do |options|
+
+	UI.important "遇到不能解决的问题, fastlane match nuke development/distribution"
+
+	match(type: "appstore")
+	match(type: "adhoc")
+	match(type: "development")
+end
+
+desc '设置证书(非管理员, 请不要使用此功能)'
+override_lane :setting do |options|
+
+	UI.important "遇到不能解决的问题, fastlane match nuke development/distribution"
+	
+	git_pull
+	cocoapods
+
+	match(type:"appstore")
+	match(type:"adhoc")
+	match(type:"development")
+end
+
+# ======================================================================
+# ======================================================================
+# ======================================================================
+
+desc '修改App本地信息'
+private_lane :change do |options|
+
+	lane 				= ENV["FASTLANE_LANE_NAME"]
+	scheme		   		= ENV["APP_SCHEME"]
+	appname 			= ENV["APP_NAME"]
+	appname_release 	= ENV["APP_NAME_RELEASE"]
+
+	# 取不同的APP_IDENTIFIER
+	lane_key = lane.upcase
+	app_identifier 		= ENV["APP_IDENTIFIER_#{lane_key}"]
+
+
+	UI.important "当前版本:#{lane}"
+	if lane.to_s == "release"
+		appname = appname_release
+	elsif
+		appname = appname + lane
+	end
+
+	# 此方法并没有成功修改 PRODUCT_BUNDLE_IDENTIFIER 
+	# Warning - 用此方法修改app_identifier, 反而导致PRODUCT_BUNDLE_IDENTIFIER错乱无法成功匹配
+	update_info_plist(
+		plist_path: "#{scheme}/Info.plist",
+      	display_name: appname,
+      	# app_identifier: app_identifier,
+  	)
+
+  	update_app_identifier(
+  		plist_path: "#{scheme}/Info.plist",
+      	app_identifier: app_identifier,
+  	)
+
+  	UI.important "\n修改AppDisplayName:#{appname}\n修改Identifier:#{app_identifier}"
+
+	# 自动增加版本号
+	# Warning 请使用x.x.x标准版本号
+  	increment_build_number
+  	increment_version_number
+
+end
