@@ -17,6 +17,7 @@ override_lane :test do |options|
   change
 
   # 匹配证书
+#   register_devices(devices_file: "./devices.txt")
   match
   # 编译/打包
   gym
@@ -47,7 +48,7 @@ desc '预发布版(测试正式环境),上传Fir'
 override_lane :beta do |options|
 
 	# 获取参数
-	lane 				    = ENV["FASTLANE_LANE_NAME"]
+  lane 			  = ENV["FASTLANE_LANE_NAME"]
   adminer         = ENV["APP_ADMINER"]
   token           = ENV["APP_FIR_TOKEN"]
 
@@ -62,6 +63,7 @@ override_lane :beta do |options|
   change
 
   # 匹配证书
+  #   register_devices(devices_file: "./devices.txt")
   match
   # 编译/打包
   gym
@@ -108,6 +110,7 @@ override_lane :release do |options|
   increment_version_number
 
   # 匹配证书
+  #   register_devices(devices_file: "./devices.txt")
   match
   # 编译/打包
   gym
@@ -141,9 +144,6 @@ desc '设置证书(非管理员, 请不要使用此功能)'
 override_lane :setting do |options|
 
 	UI.important "遇到不能解决的问题, fastlane match nuke development/distribution"
-	
-	git_pull
-	cocoapods
 
 	match(type:"appstore")
 	match(type:"adhoc")
