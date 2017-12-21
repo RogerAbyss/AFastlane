@@ -15,7 +15,7 @@ override_lane :lib_push do |options|
 	repo = spec["source"]["git"]
 
 	system "git tag #{version}"
-	system "git push --tag --force --quiet 'https://ecd88d0c010f38e360fdf0ee6d94797708033721@#{repo}' master:master"
+	system "git push --tag"
 	system "pod repo add AbyssRepo https://gitee.com/rogerabyss/myrepo.git"
 
 	pod_push(repo: "AbyssRepo")
