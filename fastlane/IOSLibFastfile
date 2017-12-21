@@ -15,17 +15,17 @@ override_lane :lib_push do |options|
 	repo = spec["source"]["git"]
 
 	command3 = "pod repo add AbyssRepo https://gitee.com/rogerabyss/myrepo.git"
-	UI.Important command3
+	UI.important command3
 	system command3
-	
+
 	command = "git remote set-url origin #{repo}"
-	UI.Important command
+	UI.important command
 	system command
 	command1 = "git tag #{version}"
-	UI.Important command1
+	UI.important command1
 	system command1
 	command2 = "git push --tag"
-	UI.Important command2
+	UI.important command2
 	system command2
 
 	pod_push(repo: "AbyssRepo")
