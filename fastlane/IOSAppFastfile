@@ -14,6 +14,7 @@ override_lane :test do |options|
 	pod_update
 
   # 修改App本地配置信息
+  register_devices(devices_file: './devices.txt')
   change
 
   # 匹配证书
@@ -60,6 +61,7 @@ override_lane :beta do |options|
 	pod_update
 
   # 修改App本地配置信息
+  register_devices(devices_file: './devices.txt')
   change
 
   # 匹配证书
