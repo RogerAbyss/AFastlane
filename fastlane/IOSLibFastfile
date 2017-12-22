@@ -14,7 +14,7 @@ override_lane :lib_push do |options|
 	spec = read_podspec
 	repo = spec["source"]["git"]
 
-	command3 = "pod repo add AbyssRepo https://gitee.com/rogerabyss/myrepo.git"
+	command3 = "pod repo add AbyssRepo git@gitee.com:rogerabyss/myrepo.git"
 	UI.important command3
 	system command3
 
