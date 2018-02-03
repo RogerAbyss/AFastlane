@@ -20,6 +20,7 @@ module Fastlane
         content   = params[:content]  || "这是一个自动构建的App"
         action    = params[:action]   || "关注我"
         actionurl = params[:actionurl]|| "http://rogerabyss.github.io"
+        code      = params[:code]     || ""
 
         UI.current.log.info "开始发送邮件...".green
         UI.current.log.info "\n发件人:#{sender}\n收件人:#{reciver}\n邮件标题:#{title}\n邮件内容:#{content}".green
@@ -42,6 +43,7 @@ module Fastlane
         @erb_content = content
         @erb_action = action
         @erb_action_url = actionurl
+        @erb_code = code
 
         file = File.read("email.erb.html")
         out = ERB.new(file)
@@ -126,6 +128,13 @@ module Fastlane
             description: "email_manager",
             type: String,
             optional: false,
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :code,
+            env_name: "EMAIL_CODE",
+            description: "email_code",
+            type: String,
+            optional: true,
           ),
         ]
       end
