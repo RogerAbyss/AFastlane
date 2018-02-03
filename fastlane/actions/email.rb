@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'mail' 
-require 'reb'
+require 'erb'
 
 module Fastlane
   module Actions
@@ -43,7 +43,7 @@ module Fastlane
         @erb_actiogn = action
         @erb_action_url = actionurl
 
-        file = File.read("/Users/abyss/WebstormProjects/untitled/email.html")
+        file = File.read("email.erb.html")
         out = ERB.new(file)
 
         mail = Mail.new do
@@ -101,11 +101,18 @@ module Fastlane
           ),
           FastlaneCore::ConfigItem.new(
           key: :manager,
-          env_name: "EMAIL_MANAGER",
-          description: "email_manager",
+          env_name: "EMAIL_ACTION",
+          description: "email_action",
           type: String,
           optional: false,
           ),
+          FastlaneCore::ConfigItem.new(
+            key: :manager,
+            env_name: "EMAIL_ACTIONURL",
+            description: "email_actionurl",
+            type: String,
+            optional: false,
+            ),
         ]
       end
 
