@@ -40,7 +40,7 @@ module Fastlane
         @erb_theme = email_title
         @erb_title = email_title
         @erb_content = content
-        @erb_actiogn = action
+        @erb_action = action
         @erb_action_url = actionurl
 
         file = File.read("email.erb.html")
@@ -100,19 +100,33 @@ module Fastlane
           optional: true,
           ),
           FastlaneCore::ConfigItem.new(
-          key: :manager,
+          key: :action,
           env_name: "EMAIL_ACTION",
           description: "email_action",
           type: String,
-          optional: false,
+          optional: true,
           ),
           FastlaneCore::ConfigItem.new(
-            key: :manager,
+            key: :actionurl,
             env_name: "EMAIL_ACTIONURL",
             description: "email_actionurl",
             type: String,
+            optional: true,
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :version,
+            env_name: "EMAIL_VERSION",
+            description: "email_version",
+            type: String,
             optional: false,
-            ),
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :manager,
+            env_name: "EMAIL_MANAGER",
+            description: "email_manager",
+            type: String,
+            optional: false,
+          ),
         ]
       end
 

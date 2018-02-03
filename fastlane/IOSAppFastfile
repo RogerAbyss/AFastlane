@@ -5,6 +5,7 @@ override_lane :test do |options|
   lane          = ENV["FASTLANE_LANE_NAME"]
   adminer       = ENV["APP_ADMINER"]
   token         = ENV["APP_FIR_TOKEN"]
+  scheme		   	= ENV["APP_SCHEME"]
 
 	# 获取最新的git
 	# Warning 只会处理当前分支
@@ -32,8 +33,11 @@ override_lane :test do |options|
 
   system "fir publish #{path} -T #{token} -c #{msg}"
 
+  # 获取版本号
+  version = get_version_number(xcodeproj: "#{scheme}.xcodeproj")
+  UI.important "#{version}"
   # 发送邮件
-  email
+  email(version: version)
 
   # 提交git
   git_add(path: '.')
@@ -49,9 +53,10 @@ desc '预发布版(测试正式环境),上传Fir'
 override_lane :beta do |options|
 
 	# 获取参数
-  lane 			  = ENV["FASTLANE_LANE_NAME"]
+  lane 			      = ENV["FASTLANE_LANE_NAME"]
   adminer         = ENV["APP_ADMINER"]
   token           = ENV["APP_FIR_TOKEN"]
+  scheme		    	= ENV["APP_SCHEME"]
 
 	# 获取最新的git
 	# Warning 只会处理当前分支
@@ -78,8 +83,11 @@ override_lane :beta do |options|
 
   system "fir publish #{path} -T #{token} -c #{msg}"
 
+  # 获取版本号
+  version = get_version_number(xcodeproj: "#{scheme}.xcodeproj")
+  UI.important "#{version}"
   # 发送邮件
-  email
+  email(version: version)
 
   # 提交git
   git_add(path: '.')
@@ -98,7 +106,8 @@ override_lane :release do |options|
 	lane 				  = ENV["FASTLANE_LANE_NAME"]
   adminer       = ENV["APP_ADMINER"]
   token         = ENV["APP_FIR_TOKEN"]
-  version       = ENV["VERSION_NUMBER"]
+  appname 			= ENV["APP_NAME"]
+  scheme		   	= ENV["APP_SCHEME"]
 
 	# 更新三方库文件
 	pod_update
@@ -120,8 +129,11 @@ override_lane :release do |options|
   # 上传AppStore
   deliver(force: false, skip_metadata: true, skip_screenshots: true)
 
+  # 获取版本号
+  version = get_version_number(xcodeproj: "#{scheme}.xcodeproj")
+  UI.important "#{version}"
   # 发送邮件
-  email
+  email(version: version)
 
   # 提交git
   git_add(path: '.')
@@ -159,9 +171,9 @@ end
 desc '修改App本地信息'
 private_lane :change do |options|
 
-	lane 				= ENV["FASTLANE_LANE_NAME"]
-	scheme		   		= ENV["APP_SCHEME"]
-	appname 			= ENV["APP_NAME"]
+	lane 				      = ENV["FASTLANE_LANE_NAME"]
+	scheme		   	  	= ENV["APP_SCHEME"]
+	appname 			    = ENV["APP_NAME"]
 	appname_release 	= ENV["APP_NAME_RELEASE"]
 
 	# 取不同的APP_IDENTIFIER
