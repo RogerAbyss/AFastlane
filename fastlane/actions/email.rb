@@ -1,11 +1,14 @@
 require 'rubygems'
 require 'mail' 
+require 'reb'
 
 module Fastlane
   module Actions
     class EmailAction < Action
 
       def self.run(params)
+        version  = params[:version]
+
         lane      = Actions.lane_context[SharedValues::LANE_NAME].to_s
 
         params.load_configuration_file("Emailfile")
@@ -15,13 +18,11 @@ module Fastlane
         manager   = params[:manager]
         title     = params[:title]    || "App-#{lane}"
         content   = params[:content]  || "这是一个自动构建的App"
+        action    = params[:action]   || "关注我"
+        actionurl = params[:actionurl]|| "http://rogerabyss.github.io"
 
         UI.current.log.info "开始发送邮件...".green
         UI.current.log.info "\n发件人:#{sender}\n收件人:#{reciver}\n邮件标题:#{title}\n邮件内容:#{content}".green
-
-        # 打印git记录
-        Actions.sh "git log --graph  --abbrev-commit --pretty=format:'%s    - %an(%cr)' -30 >report-git.txt"
-        file = File.read("report-git.txt")
 
         smtp = {
           :address => 'smtp.qq.com', 
@@ -35,18 +36,25 @@ module Fastlane
 
         Mail.defaults { delivery_method :smtp, smtp}
 
+        email_title =  "App[" + title + "]v" + version + " 更新了!"
+        @erb_theme = email_title
+        @erb_title = email_title
+        @erb_content = content
+        @erb_actiogn = action
+        @erb_action_url = actionurl
+
+        file = File.read("/Users/abyss/WebstormProjects/untitled/email.html")
+        out = ERB.new(file)
+
         mail = Mail.new do
           charset = "UTF-8"
           from sender
           to manager
           cc reciver
-          subject title
-          body content + '\n\n☞此页面提供更多帮助: 
-      https://github.com/RogerAbyss/Ascript/tree/master/build/info
-
-      ☞以下为近期提交记录:' + file
+          subject email_title
         end
 
+        mail.html_part = out.result(binding)
         mail.charset = 'UTF-8'
         mail.content_transfer_encoding = '8bit'
         mail.deliver!
