@@ -37,7 +37,7 @@ module Fastlane
 
         Mail.defaults { delivery_method :smtp, smtp}
 
-        email_title =  "App[" + title + "]v" + version + " 更新了!"
+        email_title =  "🚀App[" + title + "]v" + version + " 更新了!"
         @erb_theme = email_title
         @erb_title = email_title
         @erb_content = content
