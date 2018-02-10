@@ -31,6 +31,13 @@ AFastlane基于fastlane, 是目前我用在公司项目的自动化构建配置�
 - [x] 和Jenkins/TeamCity等系统结合使用
 - [x] 较简单的文档
 
+**shell中使用AFastlane**
+![cli](/doc/asserts/cli.png)
+**TeamCity让运维管理公司项目**
+![teamcity](/doc/asserts/teamcity.png)
+**项目文档生成**
+![jazzy](/doc/asserts/jazzy.png)
+
 ## :rocket: Installation
 
 #### Install Fastlane
