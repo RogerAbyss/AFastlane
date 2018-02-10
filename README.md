@@ -16,11 +16,9 @@
 <a href="https://juejin.im/user/594e25186fb9a06bc86e2a7d"><img src="https://img.shields.io/badge/%E6%8E%98%E9%87%91-rogerabyss-blue.svg"></a>
 
 ```
-AFastlane是什么?它能做什么?已经用了fastlane是否AFastlane?
-AFastlane基于fastlane, 是目前我用在公司项目的自动化构建配置。
-功能是实现安装环境->自动化构建->自动生成项目文档->测试->发布->邮件通知等懒人专用, 只需要一个键解你的放双手和时间, 减少人工维护可能带来错误。
-相比于fastlane, 我只是封装了公司IOS项目常用的功能, 具体请看文档。
-如果你已经在使用fastlane, 用得比较深入AFstlane可能没有什么价值因为它毕竟为我公司现项目配置的, 如果你使用得比较简单可以适当参考。
+AFastlane基于fastlane, 是我们公司自动化持续集成的配置。
+解放程序员的时间, 同时也减少了认为修改环境/配置而导致的错误。
+具体请参阅最下角的详细文档, 他的功能如下:
 ```
 
 - [x] 适用于iOS
