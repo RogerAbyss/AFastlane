@@ -37,6 +37,8 @@ AFastlane基于fastlane, 是目前我用在公司项目的自动化构建配置�
 ![teamcity](/doc/asserts/teamcity.png)
 **项目文档生成**
 ![jazzy](/doc/asserts/jazzy.png)
+**通知邮件给预定的人**
+![mail](/doc/asserts/mail.png)
 
 ## :rocket: Installation
 
