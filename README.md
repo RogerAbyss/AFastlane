@@ -49,7 +49,7 @@ gem install jazzy
 
 [Fastlane官方文档](https://docs.fastlane.tools/actions/)
 
-#### Import AFastlane
+#### 1.Import AFastlane
 
 在项目根目录初始化fastlane
 ```zsh
@@ -81,7 +81,7 @@ platform :ios do
 end
 ```
 
-#### Usage
+#### 2.Usage
 
 * fastlane test        构建测试版, DEBUG    上传fir.im
 * fastlane beta        构建预发版, RELEASE  上传fir.im   
@@ -105,7 +105,7 @@ end
  # 如果是官方可以, 参考官方文档
  ```
 
-#### Bundler 
+#### 3.Bundler 
 
 有关``bundle exec fastlane``, 新增文件``Gemfile``如下,
 ```ruby
@@ -119,7 +119,7 @@ gem "cocoapods"
 gem "jazzy"
 ```
 
-#### Jazzy 文档生成
+#### 4.Jazzy 文档生成
 
 有关文档生成, 请完成以下配置, 更多参考[Jazzy官方文档]()
 ```zsh
@@ -127,7 +127,7 @@ jazzy.yaml # Jazzy环境配置
 
 jazzy -config jazzy.yaml # 开始生成文档
 ```
-####  Teamcity
+#### 5.Teamcity
 
 暂时省略
 [TeamCity](https://www.jetbrains.com/zh/teamcity/specials/teamcity/teamcity.html?utm_source=baidu&utm_medium=cpc&utm_campaign=cn-bai-br-teamcity-ex-pc&utm_content=teamcity-pure&utm_term=teamcity)
