@@ -15,11 +15,9 @@ override_lane :test do |options|
 	pod_update
 
   # 修改App本地配置信息
-  register_devices(devices_file: './devices.txt')
   change
 
   # 匹配证书
-#   register_devices(devices_file: "./devices.txt")
   match
   # 编译/打包
   gym
@@ -66,11 +64,9 @@ override_lane :beta do |options|
 	pod_update
 
   # 修改App本地配置信息
-  register_devices(devices_file: './devices.txt')
   change
 
   # 匹配证书
-  #   register_devices(devices_file: "./devices.txt")
   match
   # 编译/打包
   gym
@@ -121,7 +117,6 @@ override_lane :release do |options|
   increment_version_number
 
   # 匹配证书
-  #   register_devices(devices_file: "./devices.txt")
   match
   # 编译/打包
   gym
@@ -162,6 +157,11 @@ override_lane :setting do |options|
 	match(type:"appstore")
 	match(type:"adhoc")
 	match(type:"development")
+end
+
+desc '增加设备, 注意到开发者中心证书添加并且刷新本地使用证书'
+override_lane :devices do |options|
+  register_devices(devices_file: './devices.txt')
 end
 
 # ======================================================================
