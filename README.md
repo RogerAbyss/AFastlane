@@ -93,14 +93,16 @@ end
 
 #### 2.Usage
 
-* fastlane test        构建测试版, DEBUG    上传fir.im
-* fastlane beta        构建预发版, RELEASE  上传fir.im   
-* fastlane release     构建正式服, RELEASE  上传appstore
-* fastlane setting     申请证书(需要删除原有所有证书)
-* fastlane decices     注册Devices(需要添加到证书需要手动)
-* fastlane refersh     获取证书(申请只需要一次, 其他人获取更新)
-* fastlane change      根据环境, 提升版本号/修改App bundle ID等信息
-* fastlane 其他用法请参考[官方文档](https://docs.fastlane.tools/actions/)
+action | description | function
+-|:-:|-:
+fastlane test|构建测试版|上传fir.im,configuration=debug
+fastlane beta|构建预发版|上传fir.im,configuration=release
+fastlane release|构建正式服|上传appstore,configuration=release
+fastlane setting|申请证书|需要删除原有所有证书
+fastlane decices|注册Devices|需要添加到证书需要手动
+fastlane refersh|获取证书|申请只需要一次, 其他人获取更新
+fastlane change|改变项目配置|根据环境, 提升版本号/修改App bundle ID等信息
+fastlane ...|很多|参考[官方文档](https://docs.fastlane.tools/actions/)
 
  ```zsh
  # 额外需要注意的是, 为了cli的方便我们需要提前配置以下文件:
