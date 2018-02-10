@@ -2,9 +2,7 @@
 
 <!-- [![Travis](https://img.shields.io/travis/RogerAbyss/AFastlane.svg)](https://travis-ci.org/RogerAbyss/AFastlane) -->
 <!-- [![Codecov](https://img.shields.io/codecov/c/github/RogerAbyss/AFastlane.svg)](https://codecov.io/gh/RogerAbyss/AFastlane) -->
-<img src="https://img.shields.io/badge/support-iOS-brightgreen.svg">
-<a href="https://github.com/fastlane/fastlane"><img src="https://img.shields.io/badge/fastlane-Ruby-orange.svg"></a>
-
+<img src="https://img.shields.io/badge/support-iOS-brightgreen.svg"><a href="https://github.com/fastlane/fastlane"><img src="https://img.shields.io/badge/fastlane-Ruby-orange.svg"></a>
 [![license](https://img.shields.io/github/license/RogerAbyss/AFastlane.svg)](https://github.com/RogerAbyss/AFastlane/blob/master/LICENSE)
 [![GitHub repo size in bytes](https://img.shields.io/github/repo-size/RogerAbyss/AFastlane.svg)](https://github.com/RogerAbyss/AFastlane)
 [![GitHub last commit (branch)](https://img.shields.io/github/last-commit/RogerAbyss/AFastlane.svg)](https://github.com/RogerAbyss/AFastlane)
@@ -97,7 +95,7 @@ end
  # 额外需要注意的是, 为了cli的方便我们需要提前配置以下文件:
  .env # 环境变量, AFastlane
  Appfile # 描述App信息, 官方
- Gymfile # 编译配置, 官方
+ Gymfile # 编译配置, 官方
  Matchfile # 证书匹配配置, 官方
  Emailfile # 邮件发送配置, AFastlane
  devices.txt # 新增设备, 参考苹果开发者中心设备导入格式
@@ -108,7 +106,7 @@ end
 
 #### Bundler 
 
-有关bundle exec fastlane, 新增文件``Gemfile``如下,
+有关``bundle exec fastlane``, 新增文件``Gemfile``如下,
 ```ruby
 # frozen_string_literal: true
 source "https://gems.ruby-china.org"
@@ -138,7 +136,7 @@ jazzy -config jazzy.yaml # 开始生成文档
 * AFstlane详细文档
 * Git项目管理美化版
 
-*如果对你有所帮助, 欢迎Star我。*
+**如果对你有所帮助, 欢迎Star我。**
 
 ## :construction_worker: Author
 
