@@ -2,7 +2,8 @@
 
 <!-- [![Travis](https://img.shields.io/travis/RogerAbyss/AFastlane.svg)](https://travis-ci.org/RogerAbyss/AFastlane) -->
 <!-- [![Codecov](https://img.shields.io/codecov/c/github/RogerAbyss/AFastlane.svg)](https://codecov.io/gh/RogerAbyss/AFastlane) -->
-<img src="https://img.shields.io/badge/support-iOS-brightgreen.svg"><a href="https://github.com/fastlane/fastlane"><img src="https://img.shields.io/badge/fastlane-Ruby-orange.svg"></a>
+<img src="https://img.shields.io/badge/support-iOS-brightgreen.svg"> <a href="https://github.com/fastlane/fastlane"><img src="https://img.shields.io/badge/fastlane-Ruby-orange.svg"></a>
+
 [![license](https://img.shields.io/github/license/RogerAbyss/AFastlane.svg)](https://github.com/RogerAbyss/AFastlane/blob/master/LICENSE)
 [![GitHub repo size in bytes](https://img.shields.io/github/repo-size/RogerAbyss/AFastlane.svg)](https://github.com/RogerAbyss/AFastlane)
 [![GitHub last commit (branch)](https://img.shields.io/github/last-commit/RogerAbyss/AFastlane.svg)](https://github.com/RogerAbyss/AFastlane)
