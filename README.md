@@ -148,8 +148,8 @@ jazzy -config jazzy.yaml # 开始生成文档
 
 ## :fire: Star me
 
-* AFstlane详细文档
-* Git项目管理美化版
+* AFstlane详细文档(待完善)
+* Git项目管理美化版(待完善)
 
 **如果对你有所帮助, 欢迎Star我。**
 
