@@ -2,8 +2,8 @@ module Fastlane
   module Actions
     class PodUpdateAction < Action
       def self.run(params)
-      	Actions.sh "pod install --no-repo-update --verbose"
-        UI.current.log.info "国内速度太慢，使用--no-repo-update节约大量的时间 ⬆️ ".green
+        Actions.sh "pod install --no-repo-update --verbose"
+        UI.message("国内速度太慢，使用--no-repo-update节约大量的时间 ⬆️ ")
       end
 
       #####################################################

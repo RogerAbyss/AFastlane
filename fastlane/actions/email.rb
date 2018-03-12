@@ -22,8 +22,8 @@ module Fastlane
         actionurl = params[:actionurl]|| "http://rogerabyss.github.io"
         code      = params[:code]     || ""
 
-        UI.current.log.info "开始发送邮件...".green
-        UI.current.log.info "\n发件人:#{sender}\n收件人:#{reciver}\n邮件标题:#{title}\n邮件内容:#{content}".green
+        UI.message("开始发送邮件...")
+        UI.message("\n发件人:#{sender}\n收件人:#{reciver}\n邮件标题:#{title}\n邮件内容:#{content}")
 
         smtp = {
           :address => 'smtp.qq.com', 
