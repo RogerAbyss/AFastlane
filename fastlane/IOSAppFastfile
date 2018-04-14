@@ -39,7 +39,7 @@ override_lane :test do |options|
 
   # 提交git
   git_add(path: '.')
-  git_commit(path: '.', message: "🚀[#{lane}] - Automatic version UP")
+  git_commit(path: '.', message: "chore: 🚀[#{lane}] - Automatic version UP")
 end
 
 # ======================================================================
@@ -87,7 +87,7 @@ override_lane :beta do |options|
 
   # 提交git
   git_add(path: '.')
-  git_commit(path: '.', message: "🚀[#{lane}] - Automatic version UP")
+  git_commit(path: '.', message: "chore: 🚀[#{lane}] - Automatic version UP")
 end
 
 # ======================================================================
@@ -132,7 +132,7 @@ override_lane :release do |options|
 
   # 提交git
   git_add(path: '.')
-  git_commit(path: '.', message: "🚀🚀[AppStore] v#{version}")
+  git_commit(path: '.', message: "chore: 🚀🚀[AppStore] v#{version}")
 end
 
 # ======================================================================
