@@ -9,7 +9,7 @@ platform :ios do
 	before_all do
 	end
 
-	import("../IOSAppFastfile")
+	import("./IOSAppFastfile")
 
 	after_all do
 	end
