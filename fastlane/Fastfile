@@ -9,9 +9,13 @@ platform :ios do
 	before_all do
 	end
 
-	import("./IOSAppFastfile")
+	UI.important("git读取配置...")
+	import_from_git(
+		url: 'https://github.com/RogerAbyss/AFastlane.git', 
+		branch: ENV["FASTLANE_FASTFILE_VERSION"],
+		path: 'fastlane/files/Fastfile'
+	)
 
 	after_all do
 	end
-	
 end
