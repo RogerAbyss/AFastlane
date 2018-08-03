@@ -10,17 +10,6 @@ platform :ios do
 
 	desc '测试'
 	override_lane :try do |options|
-		# match(type:"development",readonly: false)
-  
-		is_enterprise = ENV["APP_SETTING_CERTIFICATE_IS_ENTERPRISE"]
-		UI.important(is_enterprise)
-		if is_enterprise == true
-			UI.important("🚀 企业证书")
-		  	match(type: "enterprise",readonly: false)
-		else
-		  	match(type:"appstore",readonly: false)
-		  	match(type:"adhoc",readonly: false)
-		end
 	end
 
 	desc '构建测试版'
@@ -240,14 +229,24 @@ platform :ios do
 			increment_version_number
 		end
 
-		let devices = ENV["APP_SETTING_DEVICES"]
+		devices = ENV["APP_SETTING_DEVICES"]
 		if devices.length > 0
 			register_devices(devices)
 		end
 	end
 
-	desc '创建证书'
-	override_lane :null1 do |options|
+	override_lane :create_certificate_appstore do |options|
+		match(type:"development",readonly: false)
+
+		is_enterprise = ENV["APP_SETTING_CERTIFICATE_IS_ENTERPRISE"]
+		UI.important(is_enterprise)
+		if is_enterprise == true
+			UI.important("🚀 企业证书")
+		  	match(type: "enterprise",readonly: false)
+		else
+		  	match(type:"appstore",readonly: false)
+		  	match(type:"adhoc",readonly: false)
+		end
 	end
 
 	desc '创建推送证书'
