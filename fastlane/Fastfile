@@ -11,67 +11,152 @@ platform :ios do
 	desc '构建测试版'
 	override_lane :test do |options|
 
-		UI.important("当前版本: 测试版")
+		UI.important("🚀 当前版本: 测试版")
 
-		# git 确认状态健康
-		# git 切换指定分支
-		# git 确认分支正确
-		# git 拉取最新代码
-		# pod 更新本地三方库
-		# project 修改工程DisplayName
-		# project 修改工程Identifier
-		# project 增加版本号/build号
+		# 🚀 git 确认状态健康
+		# 🚀 git 切换指定分支
+		# 🚀 git 确认分支正确
+		# 🚀 git 拉取最新代码
+		# 🚀 pod 更新本地三方库
+		# 🚀 project 修改工程DisplayName
+		# 🚀 project 修改工程Identifier
+		# 🚀 project 增加版本号/build号
 		before
 		version = get_version_number(xcodeproj: ENV["APP_PROJECT"])
 
-		# 匹配证书
+		# 🚀 匹配证书
 		match
 
-		# 签名
+		# 🚀 签名
 		enable_automatic_code_signing(team_id: ENV["APP_TEAMID_TEST"])
 
-		# 编译
+		UI.important(ENV["APP_NAME"] + "-test-" + version)
+		# 🚀 编译
 		gym(output_name: ENV["APP_NAME"] + "-test-" + version)
 
+		# 🚀 fir.im/pgyer.cpm 上传三方
+		# 🚀 email notify
+		# 🚀 git commit/push
 		complete
-		#  # 获取版本号
-		#  version = get_version_number(xcodeproj: "#{scheme}.xcodeproj")
-		#  UI.important "#{version}"
-		#  # 发送邮件
-		#  email(version: version)
-	   
-		#  # 提交git
-		#  git_add(path: '.')
-		#  git_commit(path: '.', message: "chore: 🚀[#{lane}] - Automatic version UP")
+	end
+
+	desc '构建预发布'
+	override_lane :beta do |options|
+
+		UI.important("🚀 当前版本: 预发布")
+
+		# 🚀 git 确认状态健康
+		# 🚀 git 切换指定分支
+		# 🚀 git 确认分支正确
+		# 🚀 git 拉取最新代码
+		# 🚀 pod 更新本地三方库
+		# 🚀 project 修改工程DisplayName
+		# 🚀 project 修改工程Identifier
+		# 🚀 project 增加版本号/build号
+		before
+		version = get_version_number(xcodeproj: ENV["APP_PROJECT"])
+
+		# 🚀 匹配证书
+		match
+
+		# 🚀 签名
+		enable_automatic_code_signing(team_id: ENV["APP_TEAMID_BETA"])
+
+		UI.important(ENV["APP_NAME"] + "-beta-" + version)
+		# 🚀 编译
+		gym(output_name: ENV["APP_NAME"] + "-beta-" + version)
+
+		# 🚀 fir.im/pgyer.cpm 上传三方
+		# 🚀 email notify
+		# 🚀 git commit/push
+		complete
 	end
 	
+	desc '构建正式服'
+	override_lane :release do |options|
+		UI.important("🚀 当前版本: 正式服")
+
+		# 🚀 git 确认状态健康
+		# 🚀 git 切换指定分支
+		# 🚀 git 确认分支正确
+		# 🚀 git 拉取最新代码
+		# 🚀 pod 更新本地三方库
+		# 🚀 project 修改工程DisplayName
+		# 🚀 project 修改工程Identifier
+		# 🚀 project 增加版本号/build号
+		before
+		version = get_version_number(xcodeproj: ENV["APP_PROJECT"])
+
+		# 🚀 匹配证书
+		match
+
+		# 🚀 签名
+		enable_automatic_code_signing(team_id: ENV["APP_TEAMID_RELEASE"])
+
+		UI.important(ENV["APP_NAME"] + "-appstore-" + version)
+		# 🚀 编译
+		gym(output_name: ENV["APP_NAME"] + "-appstore-" + version)
+
+		# 🚀 appstore
+		# 🚀 testfighting
+		# 🚀 fir.im/pgyer.cpm 上传三方
+		# 🚀 email notify
+		# 🚀 git commit/push
+		complete
+	end
+
 	private_lane :complete do |options|
 		lane  = ENV["FASTLANE_LANE_NAME"]
 
-		# 上传三方
-		platform = ENV["APP_PLATFORM"]
-		if platform.length > 0
-			path  = lane_context[SharedValues::IPA_OUTPUT_PATH]
-			msg   = "[#{lane}] - automatic build by #{ENV["APP_ADMINER"]}#{ENV["FASTLANE_FASTFILE_VERSION"]}"
+		if lane == "release"
+			deliver(force: false, skip_metadata: true, skip_screenshots: true)
+		elsif lane == "testflight"
+			upload_to_testflight(team_id: ENV["APP_IDENTIFIER_TESTFLIGHT"])
+		else
+			# 上传三方
+			platform = ENV["APP_PLATFORM"]
+			if platform.length > 0
+				path  = lane_context[SharedValues::IPA_OUTPUT_PATH]
+				UI.important("ipa:" + path)
+				msg   = "[#{lane}] - automatic build by #{ENV["APP_ADMINER"]}#{ENV["FASTLANE_FASTFILE_VERSION"]}"
 
-			if platform == "fir.im"
-				token = ENV["APP_FIR_TOKEN"]
-				system "fir publish #{path} -T #{token} -c #{msg}"
-			elsif platform == "pgyer.com"
-				ukey = ENV["APP_PGYER_UKEY"]
-				token = ENV["APP_PGYER_TOKEN"]
-				system """
-				curl -F 'file=#{path}' \
-				-F 'uKey=#{ukey}' \
-				-F '_api_key=#{token}' \
-				https://www.pgyer.com/apiv1/app/upload
-				"""
+				command = ""
+				if platform == "fir.im"
+					UI.important("🚀 上传Fir.im")
+					token = ENV["APP_FIR_TOKEN"]
+
+					command = "fir publish #{path} -T #{token} -c #{msg}"
+				elsif platform == "pgyer.com"
+					UI.important("🚀 上传pgyer.com")
+					ukey = ENV["APP_PGYER_UKEY"]
+					token = ENV["APP_PGYER_TOKEN"]
+
+
+					command = "curl -F 'file=@#{path}'\
+					-F 'uKey=#{ukey}'\
+					-F '_api_key=#{token}'\
+					https://www.pgyer.com/apiv1/app/upload"
+				end
+
+				UI.important(command)
+				system command
 			end
 		end
+
+		useEmail = ENV["APP_SETTING_EMAIL_NOTIFY"]
+		if useEmail
+			email(version: get_version_number(xcodeproj: ENV["APP_PROJECT"]))
+		end
+
+		UI.important("🚀 git修改提交")
+		git_add(path: '.')
+		git_commit(path: '.', message: "chore: 🚀[test] - 自动发布版本(修改工程版本号等)")
+		system "git push"
 	end
 
 	private_lane :before do |options|
-		UI.important("请确认是否解决冲突并且提交所有改动!")
+		# git操作
+		UI.important("🚀 请确认是否解决冲突并且提交所有改动!")
 		ensure_git_status_clean
 		branch = ENV["APP_SETTING_GIT_BRANCH"]
 		if branch.length > 0
@@ -84,6 +169,7 @@ platform :ios do
 
 		pod_update
 
+		# 修改工程(版本号/app名字/identifier等)
 		lane 				= ENV["FASTLANE_LANE_NAME"]
 		appname 	  		= ENV["APP_NAME"]
 		appname_release		= ENV["APP_NAME_RELEASE"]
@@ -106,6 +192,7 @@ platform :ios do
 	
 		if(ENV["APP_SETTING_VERSION_AUTO"])
 			# Warning 请使用x.x.x标准版本号
+			UI.important("🚀 自动增长版本号")
 			increment_build_number
 			increment_version_number
 		end
