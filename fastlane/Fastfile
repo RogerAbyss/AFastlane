@@ -8,6 +8,21 @@ platform :ios do
 	before_all do
 	end
 
+	desc '测试'
+	override_lane :try do |options|
+		# match(type:"development",readonly: false)
+  
+		is_enterprise = ENV["APP_SETTING_CERTIFICATE_IS_ENTERPRISE"]
+		UI.important(is_enterprise)
+		if is_enterprise == true
+			UI.important("🚀 企业证书")
+		  	match(type: "enterprise",readonly: false)
+		else
+		  	match(type:"appstore",readonly: false)
+		  	match(type:"adhoc",readonly: false)
+		end
+	end
+
 	desc '构建测试版'
 	override_lane :test do |options|
 
@@ -76,6 +91,27 @@ platform :ios do
 	override_lane :release do |options|
 		UI.important("🚀 当前版本: 正式服")
 
+		appstore_upload
+	end
+
+		
+	desc '构建testflight'
+	override_lane :testf do |options|
+		UI.important("🚀 当前版本: Testflight")
+
+		appstore_upload
+	end
+
+	desc 'appstore资料上传'
+	override_lane :testf do |options|
+		UI.important("🚀 appstore资料上传")
+
+		capture_screenshots
+		frame_screenshots
+	end
+	
+	private_lane :appstore_upload do |options|
+		
 		# 🚀 git 确认状态健康
 		# 🚀 git 切换指定分支
 		# 🚀 git 确认分支正确
@@ -93,9 +129,8 @@ platform :ios do
 		# 🚀 签名
 		enable_automatic_code_signing(team_id: ENV["APP_TEAMID_RELEASE"])
 
-		UI.important(ENV["APP_NAME"] + "-appstore-" + version)
 		# 🚀 编译
-		gym(output_name: ENV["APP_NAME"] + "-appstore-" + version)
+		gym(output_name: ENV["APP_NAME"] + "-" + version)
 
 		# 🚀 appstore
 		# 🚀 testfighting
@@ -109,9 +144,11 @@ platform :ios do
 		lane  = ENV["FASTLANE_LANE_NAME"]
 
 		if lane == "release"
-			deliver(force: false, skip_metadata: true, skip_screenshots: true)
-		elsif lane == "testflight"
-			upload_to_testflight(team_id: ENV["APP_IDENTIFIER_TESTFLIGHT"])
+			appstore(force: false, skip_metadata: true, skip_screenshots: true)
+		elsif lane == "testf"
+			upload_to_testflight(team_id: ENV["APP_IDENTIFIER_TESTFLIGHT"],
+								 skip_waiting_for_build_processing: true
+								 )
 		else
 			# 上传三方
 			platform = ENV["APP_PLATFORM"]
@@ -144,14 +181,19 @@ platform :ios do
 		end
 
 		useEmail = ENV["APP_SETTING_EMAIL_NOTIFY"]
-		if useEmail
+		if useEmail == true
 			email(version: get_version_number(xcodeproj: ENV["APP_PROJECT"]))
 		end
 
 		UI.important("🚀 git修改提交")
 		git_add(path: '.')
 		git_commit(path: '.', message: "chore: 🚀[test] - 自动发布版本(修改工程版本号等)")
-		system "git push"
+		push_to_git_remote
+
+		# tag
+		if lane == "release" && (ENV["APP_SETTING_TAG"] == true)
+			add_git_tag
+		end
 	end
 
 	private_lane :before do |options|
@@ -174,8 +216,9 @@ platform :ios do
 		appname 	  		= ENV["APP_NAME"]
 		appname_release		= ENV["APP_NAME_RELEASE"]
 
+		UI.important("lane is #{lane.upcase}")
 		app_identifier = ENV["APP_IDENTIFIER_#{lane.upcase}"]
-		if lane.to_s == "release"
+		if lane.to_s == "release" || lane.to_s == "testf"
 			appname = appname_release
 		else
 			appname = appname + "-" + lane
@@ -190,12 +233,29 @@ platform :ios do
 		)
 		UI.important "\n修改AppDisplayName:#{appname}\n修改Identifier:#{app_identifier}"
 	
-		if(ENV["APP_SETTING_VERSION_AUTO"])
+		if(ENV["APP_SETTING_VERSION_AUTO"] == true)
 			# Warning 请使用x.x.x标准版本号
 			UI.important("🚀 自动增长版本号")
 			increment_build_number
 			increment_version_number
 		end
+
+		let devices = ENV["APP_SETTING_DEVICES"]
+		if devices.length > 0
+			register_devices(devices)
+		end
+	end
+
+	desc '创建证书'
+	override_lane :null1 do |options|
+	end
+
+	desc '创建推送证书'
+	override_lane :null1 do |options|
+	end
+
+	desc '创建iwatch证书'
+	override_lane :null1 do |options|
 	end
 
 	after_all do
