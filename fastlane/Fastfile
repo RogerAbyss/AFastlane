@@ -92,9 +92,10 @@ platform :ios do
 	end
 
 	desc 'appstore资料上传'
-	override_lane :testf do |options|
+	override_lane :upload do |options|
 		UI.important("🚀 appstore资料上传")
 
+		# 截图
 		capture_screenshots
 		frame_screenshots
 	end
@@ -133,6 +134,11 @@ platform :ios do
 		lane  = ENV["FASTLANE_LANE_NAME"]
 
 		if lane == "release"
+			pem(
+				app_identifier: ENV["APP_IDENTIFIER_RELEASE"],
+				team_id: ENV["APP_TEAMID_RELEASE"],
+				output_path: ENV["APP_SETTING_PUSH_PATH"],
+			)
 			appstore(force: false, skip_metadata: true, skip_screenshots: true)
 		elsif lane == "testf"
 			upload_to_testflight(team_id: ENV["APP_IDENTIFIER_TESTFLIGHT"],
@@ -233,28 +239,6 @@ platform :ios do
 		if devices.length > 0
 			register_devices(devices)
 		end
-	end
-
-	override_lane :create_certificate_appstore do |options|
-		match(type:"development",readonly: false)
-
-		is_enterprise = ENV["APP_SETTING_CERTIFICATE_IS_ENTERPRISE"]
-		UI.important(is_enterprise)
-		if is_enterprise == true
-			UI.important("🚀 企业证书")
-		  	match(type: "enterprise",readonly: false)
-		else
-		  	match(type:"appstore",readonly: false)
-		  	match(type:"adhoc",readonly: false)
-		end
-	end
-
-	desc '创建推送证书'
-	override_lane :null1 do |options|
-	end
-
-	desc '创建iwatch证书'
-	override_lane :null1 do |options|
 	end
 
 	after_all do
