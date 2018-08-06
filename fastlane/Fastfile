@@ -43,7 +43,6 @@ platform :ios do
 		# 🚀 git commit/push
 		complete
 	end
-
 	desc '构建预发布'
 	override_lane :beta do |options|
 
@@ -176,7 +175,7 @@ platform :ios do
 		end
 
 		useEmail = ENV["APP_SETTING_EMAIL_NOTIFY"]
-		if useEmail == true
+		if useEmail == "true"
 			email(version: get_version_number(xcodeproj: ENV["APP_PROJECT"]))
 		end
 
@@ -186,7 +185,7 @@ platform :ios do
 		push_to_git_remote
 
 		# tag
-		if lane == "release" && (ENV["APP_SETTING_TAG"] == true)
+		if lane == "release" && (ENV["APP_SETTING_TAG"] == "true")
 			add_git_tag
 		end
 	end
@@ -228,7 +227,7 @@ platform :ios do
 		)
 		UI.important "\n修改AppDisplayName:#{appname}\n修改Identifier:#{app_identifier}"
 	
-		if(ENV["APP_SETTING_VERSION_AUTO"] == true)
+		if(ENV["APP_SETTING_VERSION_AUTO"] == "true")
 			# Warning 请使用x.x.x标准版本号
 			UI.important("🚀 自动增长版本号")
 			increment_build_number

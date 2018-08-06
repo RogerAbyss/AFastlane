@@ -11,7 +11,7 @@ platform :ios do
 
 		is_enterprise = ENV["APP_SETTING_CERTIFICATE_IS_ENTERPRISE"]
 		UI.important(is_enterprise)
-		if is_enterprise == true
+		if is_enterprise == "true"
 			UI.important("🚀 企业证书")
 		  	match(type: "enterprise",readonly: false)
 		else
