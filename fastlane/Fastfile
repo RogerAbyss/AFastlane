@@ -131,6 +131,7 @@ platform :ios do
 
 	private_lane :complete do |options|
 		lane  = ENV["FASTLANE_LANE_NAME"]
+		msg	  = last_git_commit[:message]
 
 		if lane == "release"
 			pem(
@@ -141,7 +142,8 @@ platform :ios do
 			appstore(force: false, skip_metadata: true, skip_screenshots: true)
 		elsif lane == "testf"
 			upload_to_testflight(team_id: ENV["APP_IDENTIFIER_TESTFLIGHT"],
-								 skip_waiting_for_build_processing: true
+								 skip_waiting_for_build_processing: true,
+								 changelog: msg,
 								 )
 		else
 			# 上传三方
@@ -176,12 +178,15 @@ platform :ios do
 
 		useEmail = ENV["APP_SETTING_EMAIL_NOTIFY"]
 		if useEmail == "true"
-			email(version: get_version_number(xcodeproj: ENV["APP_PROJECT"]))
+			email(
+				version: get_version_number(xcodeproj: ENV["APP_PROJECT"]),
+				commitmsg: msg,
+				)
 		end
 
 		UI.important("🚀 git修改提交")
 		git_add(path: '.')
-		git_commit(path: '.', message: "chore: 🚀[test] - 自动发布版本(修改工程版本号等)")
+		git_commit(path: '.', message: "chore: 🚀[#{lane}] - 自动发布版本(修改工程版本号等)")
 		push_to_git_remote
 
 		# tag

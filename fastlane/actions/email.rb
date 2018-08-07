@@ -7,7 +7,8 @@ module Fastlane
     class EmailAction < Action
 
       def self.run(params)
-        version  = params[:version]
+        version   = params[:version]
+        commitMsg = params[:commitmsg]|| ""
 
         lane      = Actions.lane_context[SharedValues::LANE_NAME].to_s
 
@@ -40,7 +41,7 @@ module Fastlane
         email_title =  "🚀App[" + title + "]v" + version + " 更新了!"
         @erb_theme = email_title
         @erb_title = email_title
-        @erb_content = content
+        @erb_content = content + "/n/n"  + commitMsg
         @erb_action = action
         @erb_action_url = actionurl
         @erb_code = code
@@ -119,6 +120,13 @@ module Fastlane
             key: :version,
             env_name: "EMAIL_VERSION",
             description: "email_version",
+            type: String,
+            optional: false,
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :commitmsg,
+            env_name: "EMAIL_COMMITMSG",
+            description: "email_commitmsg",
             type: String,
             optional: false,
           ),
