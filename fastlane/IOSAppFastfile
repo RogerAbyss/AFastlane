@@ -1,3 +1,8 @@
+desc '-'
+override_lane :try do |options|
+  UI.important(ENV["APP_TEAMID_TEST"])
+end
+
 desc '测试版,上传Fir'
 override_lane :test do |options|
 
@@ -19,6 +24,10 @@ override_lane :test do |options|
 
   # 匹配证书
   match
+  # 签名
+  # enable_automatic_code_signing(
+  #   team_id: ENV["APP_TEAMID_TEST"]
+  # )
   # 编译/打包
   gym
 

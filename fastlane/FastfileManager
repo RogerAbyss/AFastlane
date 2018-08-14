@@ -1,0 +1,35 @@
+# Fastfile 
+# Copyright@2017 Abyss
+
+fastlane_version ENV["FASTLANE_VERSION_MIN"]
+default_platform :ios
+
+platform :ios do
+	desc '创建证书(开发)'
+	override_lane :manager_certificate do |options|
+		match(type:"development",readonly: false)
+
+		is_enterprise = ENV["APP_SETTING_CERTIFICATE_IS_ENTERPRISE"]
+		UI.important(is_enterprise)
+		if is_enterprise == "true"
+			UI.important("🚀 企业证书")
+		  	match(type: "enterprise",readonly: false)
+		else
+		  	match(type:"appstore",readonly: false)
+		  	match(type:"adhoc",readonly: false)
+		end
+	end
+
+	desc '创建证书(推送) 如需强制创建, 请手动 -force'
+	override_lane :manager_pem do |options|
+		pem(
+			app_identifier: ENV["APP_IDENTIFIER_RELEASE"],
+			team_id: ENV["APP_TEAMID_RELEASE"],
+			output_path: ENV["APP_SETTING_PUSH_PATH"],
+		)
+	end
+
+	desc '创建iwatch证书'
+	override_lane :null1 do |options|
+	end
+end
