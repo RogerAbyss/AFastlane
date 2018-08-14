@@ -144,9 +144,14 @@ override_lane :refresh do |options|
 
 	UI.important "遇到不能解决的问题, fastlane match nuke development/distribution"
 
-	match(type: "appstore")
-	match(type: "adhoc")
-	match(type: "development")
+  match(type: "development")
+
+  if ENV["FASTLANE_APPTYPE"] == "enterprise"
+    match(type: "enterprise")
+  else
+    match(type:"appstore")
+    match(type:"adhoc")
+  end
 end
 
 desc '设置证书(非管理员, 请不要使用此功能)'
@@ -154,9 +159,14 @@ override_lane :setting do |options|
 
 	UI.important "遇到不能解决的问题, fastlane match nuke development/distribution"
 
-	match(type:"appstore")
-	match(type:"adhoc")
-	match(type:"development")
+  match(type:"development")
+  
+  if ENV["FASTLANE_APPTYPE"] == "enterprise"
+    match(type: "enterprise")
+  else
+    match(type:"appstore")
+    match(type:"adhoc")
+  end
 end
 
 desc '增加设备, 注意到开发者中心证书添加并且刷新本地使用证书'
@@ -193,7 +203,6 @@ private_lane :change do |options|
 	update_info_plist(
 		plist_path: "#{scheme}/Info.plist",
       	display_name: appname,
-      	# app_identifier: app_identifier,
   	)
 
   	update_app_identifier(
@@ -207,5 +216,4 @@ private_lane :change do |options|
 	# Warning 请使用x.x.x标准版本号
   	increment_build_number
   	increment_version_number
-
 end
