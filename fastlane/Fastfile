@@ -12,6 +12,12 @@ platform :ios do
 	override_lane :try do |options|
 	end
 
+	desc '登录令牌获取'
+	override_lane :auth do |options|
+		command = "fastlane spaceauth -u #{ENV["FASTLANE_USER"]}"
+		system command
+	end
+
 	desc '构建测试版'
 	override_lane :test do |options|
 
