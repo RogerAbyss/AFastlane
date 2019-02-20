@@ -30,3 +30,19 @@ override_lane :lib_push do |options|
 
 	pod_push(repo: "AbyssRepo")
 end
+
+desc 'trunk登录'
+override_lane :trunk_login do |options|
+	command = "pod trunk register roger_ren@qq.com"
+	UI.important command
+	system command
+
+	UI.important "检查接收邮件-用于登录"
+end
+
+desc 'trunk推送'
+override_lane :trunk_push do |options|
+	command = "pod trunk push ../ --allow-warnings"
+	UI.important command
+	system command
+end
