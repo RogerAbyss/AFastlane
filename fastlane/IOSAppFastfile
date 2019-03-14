@@ -62,7 +62,7 @@ override_lane :beta do |options|
 	# 获取参数
   lane 			      = ENV["FASTLANE_LANE_NAME"]
   adminer         = ENV["APP_ADMINER"]
-  token           = ENV["APP_FIR_TOKEN"]
+  token           = ENV["APP_FIR_TOKEN_BETA"]
   scheme		    	= ENV["APP_SCHEME"]
 
 	# 获取最新的git
@@ -110,7 +110,6 @@ override_lane :release do |options|
 	# 获取参数
 	lane 				  = ENV["FASTLANE_LANE_NAME"]
   adminer       = ENV["APP_ADMINER"]
-  token         = ENV["APP_FIR_TOKEN"]
   appname 			= ENV["APP_NAME"]
   scheme		   	= ENV["APP_SCHEME"]
 
