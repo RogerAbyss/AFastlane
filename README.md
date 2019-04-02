@@ -73,7 +73,7 @@ fastlane init
 # Fastfile 
 # Copyright@2017 Abyss
 
-fastlane_version "2.69.2"
+min_fastlane_version("2.119.0")
 default_platform :ios
 
 platform :ios do
