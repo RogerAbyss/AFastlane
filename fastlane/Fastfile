@@ -202,6 +202,11 @@ platform :ios do
 	end
 
 	private_lane :before do |options|
+
+		if is_ci 
+			sh("rm","-rf","../build")
+		end
+		
 		# git操作
 		UI.important("🚀 请确认是否解决冲突并且提交所有改动!")
 		ensure_git_status_clean
