@@ -198,6 +198,9 @@ private_lane :change do |options|
 	lane_key = lane.upcase
 	app_identifier 		= ENV["APP_IDENTIFIER_#{lane_key}"]
 
+  if is_ci 
+    sh("rm","-rf","../build")
+  end
 
 	UI.important "当前版本:#{lane}"
 	if lane.to_s == "release"
