@@ -8,6 +8,11 @@ platform :ios do
 	before_all do
 	end
 
+	desc '注册'
+	override_lane :register do |options|
+		register_devices(devices_file: "./devices.txt")
+	end
+
 	desc '测试'
 	override_lane :try do |options|
 	end
