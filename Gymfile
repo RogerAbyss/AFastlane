@@ -1,0 +1,12 @@
+scheme(ENV["AFASTLANE_NAME"])
+workspace("#{ENV["AFASTLANE_NAME"]}.xcworkspace")
+buildlog_path("./fastlane/logs")
+silent(true)
+include_bitcode(false)
+analyze_build_time(false)
+clean(false)
+
+configuration(ENV["AFSTLANE_GYM_CONFIG"])
+export_method(ENV["AFSTLANE_GYM_EXPORT"])
+
+output_directory(ENV["AFASTLANE_OUTPUT"])

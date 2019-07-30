@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'mail' 
+require 'mail'
 require 'erb'
 
 module Fastlane
@@ -41,7 +41,7 @@ module Fastlane
         email_title =  "🚀App[" + title + "]v" + version + " 更新了!"
         @erb_theme = email_title
         @erb_title = email_title
-        @erb_content = content + "/n/n"  + commitMsg
+        @erb_content = content + "  " + commitMsg
         @erb_action = action
         @erb_action_url = actionurl
         @erb_code = code
@@ -128,7 +128,7 @@ module Fastlane
             env_name: "EMAIL_COMMITMSG",
             description: "email_commitmsg",
             type: String,
-            optional: false,
+            optional: true,
           ),
           FastlaneCore::ConfigItem.new(
             key: :manager,

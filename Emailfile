@@ -1,0 +1,27 @@
+# Email配置
+sender ENV["APP_EMAIL_SENDER"]
+manager ENV["APP_EMAIL_MANAGER"]
+token ENV["APP_EMAIL_TOKEN"]
+action ENV["APP_EMAIL_FUNCTION_NAME"]
+actionurl ENV["APP_EMAIL_FUNCTION_URL"]
+reciver ENV["APP_EMAIL_RECIVRT"].split(",")
+
+title "神奇商城 iOS"
+content """
+本次更新内容:
+iOS 即将更新的内容: 
+版本号 1.2.0
+
+1. 首页全新改版
+2. 新增分类页
+3. 新增发现页
+4. 个人中心改版
+5. 分享点赞得优惠活动
+6. 自编编译模式(开发)
+
+测试版下载地址: https://www.pgyer.com/L78d 密码: 123
+"""
+
+code """
+	<br><br><img src='https://gitee.com/rogerabyss/Assert/raw/master/Code/sqsc/code-sqsc-test.png' width='200px' height='200px'>
+	"""

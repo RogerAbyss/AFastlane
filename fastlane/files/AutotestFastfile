@@ -1,4 +1,0 @@
-desc '自动化测试'
-override_lane :auto_test do |options|
- scan
-end

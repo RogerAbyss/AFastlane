@@ -1,0 +1,10 @@
+git_url("https://github.com/RogerAbyss/match_repo.git")
+storage_mode("git")
+
+username(ENV["AFASTLANE_MANAGER"]) 
+app_identifier(ENV["AFASTLANE_IDENTIFIER"])
+team_id(ENV["AFASTLANE_TEAMID"])
+readonly(true)
+force_for_new_devices(true)
+verbose(true)
+git_branch(ENV["AFASTLANE_TEAMID"])

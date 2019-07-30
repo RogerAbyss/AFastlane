@@ -1,0 +1,90 @@
+
+# Copyright@2018~2019 Abyss
+# 🚀 .env 环境变量
+# 如果有特别的信息, 可以设置 .env.x 通过 --env x 指定
+
+# ==========================
+AFASTLANE_CI_PATH=""
+# 🚀 AFSTLANE的基本信息
+# 管理者邮箱(用于Appstore登录)
+AFASTLANE_MANAGER="roger_ren@qq.com"
+# APP BundleID
+# com.abyss.chao.Strawberry.test
+# com.godcreator.abyss.magicshop
+AFASTLANE_IDENTIFIER="com.abyss.chao.Strawberry.test"
+# APP TeamID
+# 1) LXJ65W87BN "Chongqing Dayi E-commercial Co., Ltd." (Company/Organization) (118406439)
+# 2) 6R8VW8F68X "Chongqing God Creator Technology Co.,Ltd" (Company/Organization) (120281977)
+# 3) Y78NU4698P "Chongqing Xilian Technology Co.,Ltd" (In-House) (119615648)
+# 4) AXURG7KGEX "Chongqing Xilian Technology Development Co., Ltd." (Company/Organization) (117766825)
+AFASTLANE_TEAMID="Y78NU4698P"
+AFASTLANE_ID="119615648"
+# 证书仓库
+AFASTLANE_REPO="git@github.com:RogerAbyss/match_repo.git"
+# AFASTLANE_PWD=
+# project.yml里的项目名
+AFASTLANE_NAME="Strawberry"
+AFASTLANE_APP_NAME="神奇商城"
+# 缓存目录
+AFASTLANE_OUTPUT="./build/temp"
+# ==========================
+
+# ==========================
+AFSTLANE_GYM_EXPORT="enterprise"
+AFSTLANE_GYM_CONFIG="Enterprise"
+# ==========================
+
+# ==========================
+# 🚀 Appstore的基本信息
+# Appstore登录账号
+FASTLANE_USER="roger_ren@qq.com"
+# FASTLANE_PASSWORD=""
+# 专用密码
+FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD="ziuj-ynxg-fgpk-rytu"
+# ==========================
+
+# ==========================
+# 🚀 Pyger的基本信息
+# Pyger Ukey
+AFASTLANE_PYGER_UKEY="52666d28cd7e25bd08aa63c31aafdfd9"
+# Pyger Token
+AFASTLANE_PYGER_APIKEY="ef88ab8f8e7d3eca95595348d9f9e40f"
+# ==========================
+
+
+# ==========================
+# 🚀 为了CI机器不进行双重认证
+# 最长时间为1个月, 注意更新
+# 之后用专门的打包账号吧 !
+# fastlane spaceauth -u roger_ren@qqcom
+# FASTLANE_SESSION="---\n- !ruby/object:HTTP::Cookie\n  name: myacinfo\n  value: DAWTKNV27e14530fe025615346b9a0bed58ecd1263968719be71841c19447266ffd44bdfdb83a71c92d38d680dade01cff902eba0ff50233a6ff531906e95720f8671d4238e7c39ef88d26f107f9f063dffcfc13ca9a11bdccd39534e3e2c901c7229a30c3ed97ee40c7195921ee97a424fd672287cc247169e3e4ef458998eab6c7fdff243690cb0fac9f42503ce24cf12430173043f7cce75c49993ccce5465fe389bb998d0df671ad4abaad7da339beeedca030699d760303e64068c5e02cbc405913a89b97a3a4e8bdb4030b6a54529f66cbb3965d6351f4f1b634261cdf7aec328fc7ba816fa3114cf6c772514db13a2e8e83d71655bf73b64e175e503268b4fdfea9e493cbaadfbb26c550501dd82990ee55655e0bf51c78b40f37296a1b9f0c36e52fe43ea7f7f16b1fadf7b68e32627506005e80425309cea47700640a81c2e920d03dd6693c094f0d240b5dd72c55883ccb71de25ba0e896494c91e4c1a12a66a9fc326d07a3bec60d1f21ab977980430646331343962656536316137643836376633383138386533336664356536383038363561656563MVRYV2\n  domain: apple.com\n  for_domain: true\n  path: "/"\n  secure: true\n  httponly: true\n  expires: \n  max_age: \n  created_at: 2019-04-24 15:29:55.753921000 +08:00\n  accessed_at: 2019-04-24 16:41:27.809985000 +08:00\n- !ruby/object:HTTP::Cookie\n  name: dqsid\n  value: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJsRS1FR2ZfSWg3WGNOQ0E4cDRpaTFnIn0.TqV-0Kj3g8IpOwCz4lxt2K5yWj-WijIVakUN9f8N9YY\n  domain: olympus.itunes.apple.com\n  for_domain: false\n  path: "/"\n  secure: true\n  httponly: true\n  expires: \n  max_age: 1800\n  created_at: &1 2019-04-24 16:41:29.122839000 +08:00\n  accessed_at: *1\n"
+# ==========================
+
+# ==========================
+# 🚀 Email
+# ==========================
+# 15213337472@163.com 李万伦
+# wabc307@163.com 管毓亮
+# 498434576@qq.com 黄兴
+# choxsu@163.com 小秋
+# 935545608@qq.com 猪猪
+# ==========================
+APP_EMAIL_TOKEN="xfbjnudclefvbgei"
+APP_EMAIL_SENDER="492764029@qq.com"
+APP_EMAIL_MANAGER="roger_ren@qq.com"
+APP_EMAIL_RECIVRT="15213337472@163.com,wabc307@163.com,498434576@qq.com,choxsu@163.com,935545608@qq.com"
+APP_EMAIL_FUNCTION_NAME="关注我"
+APP_EMAIL_FUNCTION_URL="http://rogerabyss.github.io"
+# ==========================
+
+
+# ==========================
+# 🚀 一般不需要改动
+FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT=120
+LANG="en_US.UTF-8"
+LC_ALL="en_US.UTF-8"
+FASTLANE_SKIP_UPDATE_CHECK=true
+FASTLANE_HIDE_CHANGELOG=true
+# pyger 更新信息
+AFASTLANE_PYGER_INFO="🚀 自动编译 by AFastlane"
+# ==========================

@@ -1,0 +1,8 @@
+# 🚀 从.env中设置
+app_identifier(ENV["AFASTLANE_IDENTIFIER"]) # The bundle identifier of your app
+apple_id(ENV["AFASTLANE_MANAGER"]) # Your Apple email address
+team_id(ENV["AFASTLANE_TEAMID"])
+# itc_team_id(ENV["AFASTLANE_ID"])
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
