@@ -1,4 +1,4 @@
-git_url("https://github.com/RogerAbyss/match_repo.git")
+git_url(ENV["AFASTLANE_REPO"])
 storage_mode("git")
 
 username(ENV["AFASTLANE_MANAGER"]) 
