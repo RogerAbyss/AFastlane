@@ -22,6 +22,7 @@ platform :ios do
   lane :start do |options|
 
     config = options[:config]
+    version = options[:version]
 
     # 确保分支最新
     git_pull
@@ -35,7 +36,7 @@ platform :ios do
     end
 
     clean_for_preare
-    prepare_for_build(config: config)
+    prepare_for_build(config: config, version: version)
     build_for_app(config: config)
     app_for_upload(config: config)
     app_for_analysis
@@ -48,6 +49,7 @@ platform :ios do
     # 此方法并没有成功修改 PRODUCT_BUNDLE_IDENTIFIER 
     # Warning - 用此方法修改app_identifier, 反而导致PRODUCT_BUNDLE_IDENTIFIER错乱无法成功匹配
     path = ENV["AFASTLANE_NAME"]
+    version = options[:version]
     
     # 更改显示名字
     update_info_plist(
@@ -61,14 +63,15 @@ platform :ios do
       app_identifier: ENV["AFASTLANE_IDENTIFIER"],
     )
 
-    # 增长版本号
-    increment_version_number
-    # 设置version为build号
-    version = get_version_number(
-      xcodeproj: ENV["APP_PROJECT"],
-      target: ENV["AFASTLANE_NAME"],
-    )
-    increment_build_number(build_number: version)
+    increment_version_number(
+      version_number: version,
+      xcodeproj: "#{ENV["AFASTLANE_NAME"]}.xcodeproj"
+      )
+
+    increment_build_number(
+      build_number: version,
+      xcodeproj: "#{ENV["AFASTLANE_NAME"]}.xcodeproj"
+      )
   end
 
   private_lane :build_for_app do |options|
