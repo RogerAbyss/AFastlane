@@ -8,6 +8,7 @@ reciver ENV["APP_EMAIL_RECIVRT"].split(",")
 
 title "神奇商城 iOS"
 content """
+更新日志请参考TeamCity: http://192.168.3.105:8111
 测试账号编辑地址: https://github.com/RogerAbyss/testPod/blob/master/test.json
 测试版下载地址: https://www.pgyer.com/OxoR 密码: 123
 """
