@@ -29,10 +29,10 @@ platform :ios do
     ensure_git_status_clean
 
     # 获取configuration
-    if config == nil
-      config = UI.select("what configuration do you want to run: ",
-         ["Debug", "Adhoc", "Enterprise", "AppStore"])
-    end
+    # if config == nil
+    #   config = UI.select("what configuration do you want to run: ",
+    #      ["Debug", "Adhoc", "Enterprise", "AppStore"])
+    # end
 
     clean_for_preare
     prepare_for_build
