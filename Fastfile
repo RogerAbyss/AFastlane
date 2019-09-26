@@ -76,7 +76,7 @@ platform :ios do
     )
 
     # 从仓库匹配证书
-    match(type: ENV["AFSTLANE_GYM_EXPORT"])
+    match(type: ENV["AFSTLANE_GYM_MATCH"])
 
     # 设置team
     update_project_team(
