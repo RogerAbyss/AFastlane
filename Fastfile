@@ -70,12 +70,18 @@ platform :ios do
 
   private_lane :build_for_app do |options|
 
-    config = options[:config]
-
     version = get_version_number(
       xcodeproj: ENV["APP_PROJECT"],
       target: ENV["AFASTLANE_NAME"],
     )
+
+    match_type_map = {
+      "Debug"=> "adhoc",
+      "Adhoc"=> "adhoc",
+      "Enterprise"=> "enterprise",
+      "AppStore"=> "appstore"
+    }
+
     # 从仓库匹配证书
     match(type: match_type_map[ENV["AFSTLANE_GYM_CONFIG"]])
 
