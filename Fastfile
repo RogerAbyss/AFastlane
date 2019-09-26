@@ -91,12 +91,12 @@ platform :ios do
   end
 
   private_lane :app_for_upload do |options|
-    config = ENV["AFSTLANE_GYM_EXPORT"]
+    config = ENV["AFSTLANE_GYM_MATCH"]
 
     # 测试上传的二进制文件
     # lane_context[SharedValues::IPA_OUTPUT_PATH] = "/Users/abyss/Desktop/Strawberry-iOS/Strawberry/build/sale/Strawberry-1.0.149.ipa"
 
-    if config == "AppStore"
+    if config == "appstore"
       deliver()
     else 
       # 上传蒲公英
