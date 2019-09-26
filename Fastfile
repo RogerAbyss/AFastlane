@@ -75,15 +75,8 @@ platform :ios do
       target: ENV["AFASTLANE_NAME"],
     )
 
-    match_type_map = {
-      "Debug"=> "adhoc",
-      "Adhoc"=> "adhoc",
-      "Enterprise"=> "enterprise",
-      "AppStore"=> "appstore"
-    }
-
     # 从仓库匹配证书
-    match(type: match_type_map[ENV["AFSTLANE_GYM_EXPORT"]])
+    match(type: ENV["AFSTLANE_GYM_EXPORT"])
 
     # 设置team
     update_project_team(
