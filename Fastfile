@@ -83,7 +83,7 @@ platform :ios do
     }
 
     # 从仓库匹配证书
-    match(type: match_type_map[ENV["AFSTLANE_GYM_CONFIG"]])
+    match(type: match_type_map[ENV["AFSTLANE_GYM_EXPORT"]])
 
     # 设置team
     update_project_team(
