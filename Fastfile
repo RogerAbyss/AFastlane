@@ -35,11 +35,11 @@ platform :ios do
     end
 
     clean_for_preare
-    prepare_for_build(config: config)
-    build_for_app(config: config)
-    app_for_upload(config: config)
+    prepare_for_build
+    build_for_app
+    app_for_upload
     app_for_analysis
-    git_for_commit(config: config)
+    git_for_commit
 
   end
 
@@ -72,27 +72,12 @@ platform :ios do
 
     config = options[:config]
 
-    match_type_map = {
-      "Debug"=> "adhoc",
-      "Adhoc"=> "adhoc",
-      "Enterprise"=> "enterprise",
-      "AppStore"=> "appstore"
-    }
-
-    export_method_map = {
-      "Debug"=> "ad-hoc",
-      "Adhoc"=> "ad-hoc",
-      "Enterprise"=> "enterprise",
-      "AppStore"=> "app-store"
-    }
-
     version = get_version_number(
       xcodeproj: ENV["APP_PROJECT"],
       target: ENV["AFASTLANE_NAME"],
     )
-
     # 从仓库匹配证书
-    match(type: match_type_map[config])
+    match(type: match_type_map[ENV["AFSTLANE_GYM_CONFIG"]])
 
     # 设置team
     update_project_team(
@@ -107,7 +92,7 @@ platform :ios do
   end
 
   private_lane :app_for_upload do |options|
-    config = options[:config]
+    config = ENV["AFSTLANE_GYM_CONFIG"]
 
     # 测试上传的二进制文件
     # lane_context[SharedValues::IPA_OUTPUT_PATH] = "/Users/abyss/Desktop/Strawberry-iOS/Strawberry/build/sale/Strawberry-1.0.149.ipa"
@@ -159,8 +144,6 @@ platform :ios do
   end
 
   private_lane :git_for_commit do |options|
-    config = options[:config]
-
     version = get_version_number(
       xcodeproj: "#{ENV["AFASTLANE_NAME"]}.xcodeproj",
       target: ENV["AFASTLANE_NAME"])
@@ -168,6 +151,6 @@ platform :ios do
     build = get_build_number(xcodeproj: "#{ENV["AFASTLANE_NAME"]}.xcodeproj")
 
     git_add(path: '.')
-		git_commit(path: '.', message: "🚀 自动打包 [#{config}] - v#{version}(#{build})")
+		git_commit(path: '.', message: "🚀 自动打包 [#{ENV["AFSTLANE_GYM_CONFIG"]}] - v#{version}(#{build})")
   end
 end
