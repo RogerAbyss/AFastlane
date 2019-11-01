@@ -97,6 +97,7 @@ platform :ios do
     # lane_context[SharedValues::IPA_OUTPUT_PATH] = "/Users/abyss/Desktop/Strawberry-iOS/Strawberry/build/sale/Strawberry-1.0.149.ipa"
 
     if config == "appstore"
+      ENV["DELIVER_ITMSTRANSPORTER_ADDITIONAL_UPLOAD_PARAMETERS"] = "-t DAV"
       deliver()
     else 
       # 上传蒲公英
