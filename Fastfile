@@ -24,9 +24,9 @@ platform :ios do
     config = options[:config]
 
     # 确保分支最新
-    git_pull
+    # git_pull
     # 确保分支干净
-    ensure_git_status_clean
+    # ensure_git_status_clean
 
     # 获取configuration
     # if config == nil
@@ -97,7 +97,10 @@ platform :ios do
     # lane_context[SharedValues::IPA_OUTPUT_PATH] = "/Users/abyss/Desktop/Strawberry-iOS/Strawberry/build/sale/Strawberry-1.0.149.ipa"
 
     if config == "appstore"
-      ENV["DELIVER_ITMSTRANSPORTER_ADDITIONAL_UPLOAD_PARAMETERS"] = "-t DAV"
+      # DAV
+      # Signiant
+      # Aspera
+      ENV["DELIVER_ITMSTRANSPORTER_ADDITIONAL_UPLOAD_PARAMETERS"] = "-t Aspera"
       deliver()
     else 
       # 上传蒲公英
